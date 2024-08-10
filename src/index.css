@@ -1,3 +1,7 @@
+@tailwind base; /* Apply Tailwind’s base styles */
+@tailwind components; /* Apply Tailwind’s component styles */
+@tailwind utilities; /* Apply Tailwind’s utility classes */
+
 body {
   margin: 0;
   padding: 0;
