@@ -1,9 +1,13 @@
+import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
+import AppRoutes from "./routes/Routes";
 
 function App() {
   return (
-    <div className="min-height-rule">
-      <h1 className="text-4xl font-bold text-blue-500">Hello, Tailwind CSS!</h1>
+    <div className="app-section">
+      <Router basename="/">
+        <AppRoutes />
+      </Router>
     </div>
   );
 }
