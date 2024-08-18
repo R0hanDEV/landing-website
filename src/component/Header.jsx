@@ -1,93 +1,194 @@
+import {
+  AppBar,
+  Box,
+  Button,
+  Container,
+  Divider,
+  Drawer,
+  MenuItem,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import { useState } from "react";
+import MenuIcon from "@mui/icons-material/Menu";
 import { WebsiteLogo } from "../images.path";
 
+const HeaderAppBarCss = {
+  boxShadow: 0,
+  bgcolor: "transparent",
+  backgroundImage: "none",
+  mt: 2,
+};
+
+const ToolbarStyle = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  flexShrink: 0,
+  borderRadius: "999px",
+  bgcolor: "rgba(255, 255, 255, 0.4)",
+  backdropFilter: "blur(24px)",
+  maxHeight: 40,
+  border: "1px solid",
+  borderColor: "divider",
+  boxShadow:
+    "0 0 1px rgba(85, 166, 246, 0.1), 1px 1.5px 2px -1px rgba(85, 166, 246, 0.15), 4px 4px 12px -2.5px rgba(85, 166, 246, 0.15)",
+};
+
+const LogoMenuContainerStyle = {
+  flexGrow: 1,
+  display: "flex",
+  alignItems: "center",
+  ml: "-18px",
+  px: 0,
+};
+
+const logoContainer = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  gap: 0.5,
+  marginLeft: "10px",
+  marginRight: "10px",
+  cursor: "pointer",
+};
+const logoStyle = {
+  width: "58px",
+  height: "auto",
+};
+
+const MenuItemStyle = { py: "6px", px: "12px" };
+
+const SignInUpContainerStyle = {
+  display: { xs: "none", md: "flex" },
+  gap: 1,
+  alignItems: "center",
+};
+
 function Header() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
 
   return (
-    <div className="header-section   bg-gradient-to-r from-gray-800 via-gray-700 to-gray-800  text-white shadow-lg">
-      <div className="container mx-auto flex justify-between items-center py-4 px-6">
-        {/* Left Side - Logo and Website Name */}
-        <div className="flex items-center space-x-4">
-          <img
-            src={WebsiteLogo}
-            alt="Logo"
-            className="h-10 w-10 mix-blend-lighten"
-          />
-          <span className="text-xl font-semibold">VidAize</span>
-        </div>
+    <div className="header-section">
+      <AppBar position="fixed" sx={HeaderAppBarCss}>
+        <Container maxWidth="lg">
+          <Toolbar variant="regular" sx={ToolbarStyle}>
+            {/* logo with menu style */}
+            <Box className="menu-logo-contain" sx={LogoMenuContainerStyle}>
+              <Box className="logo-container" sx={logoContainer}>
+                <img
+                  src={WebsiteLogo}
+                  style={logoStyle}
+                  alt="logo of sitemark"
+                />
+                <Typography variant="h6" color={"#4876EE"}>
+                  xtechstack
+                </Typography>
+              </Box>
 
-        {/* Hamburger Menu Icon (Visible on Mobile) */}
-        <div className="md:hidden">
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="text-white focus:outline-none"
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              ></path>
-            </svg>
-          </button>
-        </div>
+              {/* menu box list */}
+              <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                <MenuItem sx={MenuItemStyle}>
+                  <Typography variant="body2" color="text.primary">
+                    Features
+                  </Typography>
+                </MenuItem>
+                <MenuItem sx={MenuItemStyle}>
+                  <Typography variant="body2" color="text.primary">
+                    Testimonials
+                  </Typography>
+                </MenuItem>
+                <MenuItem sx={MenuItemStyle}>
+                  <Typography variant="body2" color="text.primary">
+                    Highlights
+                  </Typography>
+                </MenuItem>
+                <MenuItem sx={MenuItemStyle}>
+                  <Typography variant="body2" color="text.primary">
+                    Pricing
+                  </Typography>
+                </MenuItem>
+                <MenuItem sx={MenuItemStyle}>
+                  <Typography variant="body2" color="text.primary">
+                    FAQ
+                  </Typography>
+                </MenuItem>
+              </Box>
+            </Box>
 
-        {/* Right Side - Contact and Login/Signup (Hidden on Mobile) */}
-        <div className="hidden md:flex items-center space-x-6">
-          <a
-            href="/contact"
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
-          >
-            Contact
-          </a>
-          <a
-            href="/login"
-            className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded"
-          >
-            Login
-          </a>
-          <a
-            href="/signup"
-            className="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded"
-          >
-            Sign Up
-          </a>
-        </div>
-      </div>
+            {/* signin up desktop container  */}
+            <Box
+              className="signin-up-btn-container"
+              sx={SignInUpContainerStyle}
+            >
+              <Button color="primary" variant="text" size="small" component="a">
+                Sign in
+              </Button>
+              <Button color="primary" variant="contained" size="small">
+                Sign up
+              </Button>
+            </Box>
 
-      {/* Mobile Menu (Visible when isOpen is true) */}
-      {isOpen && (
-        <div className="md:hidden">
-          <div className="flex flex-col items-center space-y-4 py-4">
-            <a
-              href="/contact"
-              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
-            >
-              Contact
-            </a>
-            <a
-              href="/login"
-              className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded"
-            >
-              Login
-            </a>
-            <a
-              href="/signup"
-              className="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded"
-            >
-              Sign Up
-            </a>
-          </div>
-        </div>
-      )}
+            {/* signin up mobile container  */}
+            <Box sx={{ display: { sm: "", md: "none" } }}>
+              <Button
+                variant="text"
+                color="primary"
+                aria-label="menu"
+                onClick={toggleDrawer(true)}
+                sx={{ minWidth: "30px", p: "4px" }}
+              >
+                <MenuIcon />
+              </Button>
+
+              <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
+                <Box
+                  sx={{
+                    minWidth: "60dvw",
+                    p: 2,
+                    backgroundColor: "background.paper",
+                    flexGrow: 1,
+                  }}
+                >
+                  <MenuItem>Features</MenuItem>
+                  <MenuItem>Testimonials</MenuItem>
+                  <MenuItem>Highlights</MenuItem>
+                  <MenuItem>Pricing</MenuItem>
+                  <MenuItem>FAQ</MenuItem>
+                  <Divider />
+                  <MenuItem>
+                    <Button
+                      color="primary"
+                      variant="contained"
+                      component="a"
+                      href="/material-ui/getting-started/templates/sign-up/"
+                      target="_blank"
+                      sx={{ width: "100%" }}
+                    >
+                      Sign up
+                    </Button>
+                  </MenuItem>
+                  <MenuItem>
+                    <Button
+                      color="primary"
+                      variant="outlined"
+                      component="a"
+                      href="/material-ui/getting-started/templates/sign-in/"
+                      target="_blank"
+                      sx={{ width: "100%" }}
+                    >
+                      Sign in
+                    </Button>
+                  </MenuItem>
+                </Box>
+              </Drawer>
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
     </div>
   );
 }

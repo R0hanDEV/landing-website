@@ -1,68 +1,50 @@
-import Header from "../component/Header";
-import Imagecard from "../component/Imagecard";
-import { Languages, VideoMaker, VisionMagic } from "../images.path";
-import VideoDemo from "../assets/videos/demo.mp4";
+import { Box } from "@mui/material";
 import Footer from "../component/Footer";
-const Homepage = () => {
-  const cards = [
-    { imageSrc: VideoMaker, title: "Stunning Video Creation" },
-    { imageSrc: VisionMagic, title: "Multilingual Mastery" },
-    { imageSrc: Languages, title: "Your Vision, Our Magic" },
-    // Add more cards as needed
-  ];
+import Header from "../component/Header";
+import HeroSection from "../component/HeroSection";
+import TapButton from "../component/TapButton";
+import VideoSection from "../component/videoSection";
+import { useState } from "react";
 
-  const languages = [
-    { code: "EN", name: "English" },
-    { code: "ES", name: "Spanish" },
-    { code: "FR", name: "French" },
-    { code: "DE", name: "German" },
-    // Add more languages as needed
+const Homepage = () => {
+  const [tabSelected, setTabSelected] = useState("");
+  const buttons = [
+    { id: "tab1", title: "Loop" },
+    { id: "tab2", title: "Reverse" },
+    { id: "tab3", title: "slow motion" },
+    { id: "tab4", title: "speed" },
   ];
 
   return (
     <div className="home-page-section">
       <Header />
+      <HeroSection />
+      <VideoSection />
 
-      {/* benifity section */}
-      <h2 className="text-2xl flex justify-center mt-5 font-bold text-blue-500 m-auto ">
-        Welcome to VidAize
-      </h2>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
-        {cards.map((card, index) => (
-          <Imagecard key={index} imageSrc={card.imageSrc} title={card.title} />
+      {/* video tab selection */}
+      <Box
+        className="video-tab-collection"
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          textAlign: "center",
+          flexWrap: "wrap",
+          gap: "3vh",
+          pt: { xs: 2, sm: 3 },
+          pb: { xs: 1, sm: 1 },
+        }}
+      >
+        {buttons.map((button) => (
+          <TapButton
+            key={button.id}
+            id={button.id}
+            title={button.title}
+            tabSelected={tabSelected}
+            setTabSelected={setTabSelected}
+          />
         ))}
-      </div>
-
-      {/* video  section */}
-      <h2 className="text-2xl flex justify-center mt-5 font-bold text-blue-500 m-auto ">
-        Try it yourself!
-      </h2>
-
-      {/* Video Component */}
-      <div className="relative p-4">
-        <video
-          controls
-          className="w-full h-auto rounded-lg shadow-lg"
-          src={VideoDemo}
-        >
-          Your browser does not support the video tag.
-        </video>
-      </div>
-
-      {/* Language Cards */}
-      <div className="mt-3 mb-3 flex flex-wrap justify-center gap-4">
-        {languages.map((lang) => (
-          <div
-            key={lang.code}
-            className="bg-gray-800 text-white px-4 py-2 rounded-lg shadow-md cursor-pointer transition duration-300 ease-in-out transform hover:scale-105"
-          >
-            {lang.name}
-          </div>
-        ))}
-      </div>
-
-      {/* footer  */}
+      </Box>
       <Footer />
     </div>
   );
